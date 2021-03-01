@@ -1,0 +1,6 @@
+<h1>User profile: <%= @user.username %></h1>
+<%= form_with url: "/upload", multipart: true do |f| %>
+  <%= f.file_field :file %><br>
+  <%= f.submit "Upload" %>
+<% end %>
+<%= link_to "Download your categories (CSV)", user_download_path(@user.username) %>

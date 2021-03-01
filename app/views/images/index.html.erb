@@ -1,0 +1,48 @@
+<%= render "shared/header" %> <!-- hehe I'm clever -->
+
+<h1>All your media</h1>
+<h4><%= @all.size %> selected items:</h4>
+<ul>
+  <li><%= pluralize(@images.size, 'image') %></li>
+  <li><%= pluralize(@videos.size, 'video') %></li>
+  <li><%= pluralize(@links.size, 'link') %></li>
+</ul>
+<%= link_to "See all your categories", categories_path %><br>
+<%= link_to "Add image", new_image_path %><br><br>
+<%= form_with url: "/images", method: :get, local: true do |f| %>
+  <%= f.select(:sort, [['ascending','asc'],['descending','desc'],['alphabetically','abc'],'favorite'], :selected => params[:sort]) %>
+  <%= f.submit "Sort" %>
+<% end %>
+<% if @images.size == 0 %>
+  <br>lollllll you have no images lollllll<br><br>
+<% end %>
+
+<hr>
+<center>
+  <% @images.each do |f| %>
+    <figure>
+      <%= link_to image_tag(f.url, title: f.title), image_path(f.id) %>
+      <figcaption>
+        <%= link_to "Edit", edit_image_path(f.id) %> |
+        <%= link_to "Delete", image_path(f.id), method: :delete, data: { confirm: "Are you sure?" } %>
+      </figcaption>
+    </figure>
+  <% end %>
+</center>
+<hr>
+
+<table class="imagesindex">
+  <td>
+    <% @videos.each do |f| %>
+      <details>
+        <summary><%= f.title %></summary>
+        <%= link_to video_tag(f.url, controls: true, preload: 'none'), image_path(f.id) %>
+      </details><br>
+    <% end %>
+  </td>
+  <td>
+    <% @links.each do |f| %>
+      <%= link_to f.title, f.url, target: "_blank" %> (<%= link_to "edit", edit_image_path(f.id) %>)<br>
+    <% end %>
+  </td>
+</table>

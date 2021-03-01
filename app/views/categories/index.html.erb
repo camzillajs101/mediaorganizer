@@ -1,0 +1,42 @@
+<%= render "shared/header" %>
+
+<h1>All your categories (<%= @categories.size %>)</h1>
+<%= link_to "See all your images", images_path %>
+<br><br>
+<table class="categoriesindex">
+  <tr>
+    <th>Category name</th>
+    <th>Favorite?</th>
+    <th># of items</th>
+    <th>Images</th>
+    <th>Videos</th>
+    <th>Links</th>
+    <th>% Images</th>
+    <th></th>
+  </tr>
+  <% @categories.each do |f| %>
+    <% @images_size = f.images.where(mediatype: "image").size %>
+    <% @videos_size = f.images.where(mediatype: "video").size %>
+    <tr>
+      <td><%= link_to f.title, category_path(f.id) %></td>
+      <td><%= f.favorite %></td>
+      <td><%= f.images.size %></td>
+      <td><%= @images_size %></td>
+      <td><%= @videos_size %></td>
+      <td><%= f.images.where(mediatype: "link").size %></td>
+      <td><%= ((@images_size.to_f / (f.images.size == 0 ? 1.0 : f.images.size.to_f)).round(2) * 100).to_i %>%</td>
+      <td><%= link_to "Edit", edit_category_path(f.id) %></td>
+    </tr>
+  <% end %>
+  <% if @categories.size == 0 %>
+    <tr>
+      <td>lollllll</td>
+      <td>you</td>
+      <td>have</td>
+      <td>no</td>
+      <td>categories</td>
+      <td>lollllll</td>
+    </tr>
+  <% end %>
+</table><br>
+<%= link_to "New category", new_category_path %>

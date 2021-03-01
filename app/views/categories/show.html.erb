@@ -1,0 +1,21 @@
+<%= render "shared/header" %>
+
+<h1><%= @category.title %></h1>
+<h3><%= pluralize(@images.size, "image") %>, <%= pluralize(@videos.size, "video") %>, <%= pluralize(@links.size, "link") %></h3>
+<%= link_to "Back to all categories", categories_path %>
+<hr>
+<center>
+<% @images.each do |f| %>
+  <%= link_to image_tag(f.url, title: f.title), image_path(f.id) %>
+<% end %>
+</center>
+<% @videos.each do |f| %>
+  <details>
+    <summary><%= f.title %></summary>
+    <%= video_tag(f.url, controls: true, preload: 'none') %><br>
+  </details><br>
+<% end %>
+<br>
+<% @links.each do |f| %>
+  <%= link_to f.title, f.url, target: "_blank" %><br>
+<% end %>

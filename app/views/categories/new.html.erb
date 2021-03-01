@@ -1,0 +1,14 @@
+<%= render 'shared/header' %>
+
+<h1>New category</h1>
+
+<%= form_with model: @category do |f| %>
+  <div class="field"><%= f.text_field :title, placeholder: "Title" %></div>
+
+  <div class="field">
+    <%= f.label :favorite, "Favorite?" %>
+    <%= f.check_box :favorite %><br>
+  </div>
+
+  <div class="field"><%= f.submit %></div>
+<% end %>

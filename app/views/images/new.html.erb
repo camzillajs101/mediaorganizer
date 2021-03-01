@@ -1,0 +1,32 @@
+<h1>Add image</h1>
+
+<%= form_with model: @image do |f| %>
+  <div class="field"><%= f.text_field :url, placeholder: "URL" %></div>
+
+  <div class="field"><%= f.text_field :title, placeholder: "Title" %></div>
+
+  <div class="field">
+    <%= f.check_box :favorite %>
+    <%= f.label :favorite, "Favorite?" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :mediatype, "Media type" %><br>
+    <%= f.select(:mediatype, [['image','image'],['video','video'],['link','link']]) %><br>
+  </div>
+
+  <div class="field">
+    <h3>Categories</h3>
+    <% if current_user.categories.all.size == 0 %>
+      (no categories)
+    <% end %>
+    <% current_user.categories.all.each do |category| %>
+      <%= f.fields_for category do |category_form| %>
+        <%= category_form.check_box category.id, { checked: false } %>
+        <%= category_form.label category.title %><br>
+      <% end %>
+    <% end %>
+  </div>
+
+  <%= f.submit %>
+<% end %>
