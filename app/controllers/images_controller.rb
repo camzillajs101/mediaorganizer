@@ -35,7 +35,7 @@ class ImagesController < ApplicationController
   def create
     @image = current_user.images.new(image_params.except(:category))
 
-    if (@image.save)
+    if @image.save
       image_params[:category].each do |f|
         if f[1] == "1"
           Category.find(f[0]).images << @image

@@ -6,6 +6,6 @@ Rails.application.routes.draw do
   resources :categories
   resources :images
   get 'users/:username', to: "users#show", as: "user"
-  # post 'upload', to: "users#upload"
+  post 'upload', to: "users#upload"
   # get '/users/:username/download', to: "users#download", as: "user_download"
 end

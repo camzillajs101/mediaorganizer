@@ -1,6 +1,8 @@
 <h1>User profile: <%= @user.username %></h1>
 <%= form_with url: "/upload", multipart: true do |f| %>
   <%= f.file_field :file %><br>
-  <%= f.submit "Upload" %>
+  <%= f.select(:type, ['images','categories','jointable']) %><br>
+  Starting indexes for join table<br>
+  <%= f.number_field :category_start, placeholder: "category" %><%= f.number_field :images_start, placeholder: "image" %><br><br>
+  <%= f.submit "Upload CSV" %>
 <% end %>
-<%= link_to "Download your categories (CSV)", user_download_path(@user.username) %>
