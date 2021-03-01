@@ -1,7 +1,7 @@
 <%= render "shared/header" %> <!-- hehe I'm clever -->
 
 <h1>All your media</h1>
-<h4><%= @all.size %> selected items:</h4>
+<h4><%= pluralize(@all.size, 'item') %> selected:</h4>
 <ul>
   <li><%= pluralize(@images.size, 'image') %></li>
   <li><%= pluralize(@videos.size, 'video') %></li>
